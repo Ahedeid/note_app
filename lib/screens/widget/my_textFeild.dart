@@ -9,6 +9,7 @@ class MyTextField extends StatelessWidget {
     required this.keyboardType,
     this.bottomMargin = 0,
     this.prefixIcon,
+    this.onChange,
     //this.onSaved,
     this.height = 65,
     this.width = double.infinity,
@@ -27,7 +28,7 @@ class MyTextField extends StatelessWidget {
 
 
   // Function? validator;
-  // Function? onSaved;
+   Function? onChange;
   // TextEditingController? controller;
   AutovalidateMode? autovalidateMode;
   Widget? prefixIcon;
@@ -43,6 +44,7 @@ class MyTextField extends StatelessWidget {
       height: height,
       width: width,
       child: TextFormField(
+        onChanged: onChange as Function(String?)? ,
         //   onSaved: onSaved as Function(String?)?,
         //  controller: controller,
         //    validator: validator as String? Function(String?)?,
