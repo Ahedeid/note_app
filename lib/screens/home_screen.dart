@@ -45,20 +45,20 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: ListView.builder(
                             itemCount: note.getNote.length,
                             itemBuilder: (context, index) {
-                              final item = note.getNote[index].toString();
-                              final Item = note.getNote[index];
+                              final itemsKey = note.getNote[index].toString();
+                              final items = note.getNote[index];
                               return NoteCard(
-                                item: item,
-                                noteShow: Item,
+                                item: itemsKey,
+                                noteShow: items,
                                 onDismissed: (direction) {
                                   note.removeItem(index);
                                   note.removeItemFav(index);
                                 },
                                 onTapFav: () {
-                                  note.toggleFavorite(Item);
-                                  print('ok');
+                                  note.toggleFavorite(items);
+                                  debugPrint('ok');
                                 },
-                                isFav: Item.isFavorite,
+                                isFav: items.isFavorite,
                               );
                             }),
                       ),

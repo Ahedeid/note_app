@@ -33,18 +33,18 @@ class FavoriteScreen extends StatelessWidget {
                   child: ListView.builder(
                       itemCount: favNote.getFavorites.length,
                       itemBuilder: (context, index) {
-                        final item = favNote.getFavorites[index].toString();
-                        final Item = favNote.getFavorites[index];
+                        final itemsKey = favNote.getFavorites[index].toString();
+                        final items = favNote.getFavorites[index];
                         return NoteCard(
-                          isFav: Item.isFavorite,
-                          item: item,
-                          noteShow: Item,
+                          isFav: items.isFavorite,
+                          item: itemsKey,
+                          noteShow: items,
                           onDismissed: (direction) {
                             favNote.removeItemFav(index);
                             favNote.removeItem(index);
                           },
                           onTapFav: () {
-                            favNote.toggleFavorite(Item);
+                            favNote.toggleFavorite(items);
                             print('ok');
                           },
                         );
