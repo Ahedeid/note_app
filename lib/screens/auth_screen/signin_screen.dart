@@ -3,7 +3,8 @@ import 'package:note_app/screens/widget/my_textFeild.dart';
 import 'package:note_app/utils/colors_manger.dart';
 import 'package:note_app/utils/images_constant.dart';
 import 'package:note_app/utils/sizes_in_app.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
+import '../../provider/userLoggedIn.dart';
 import '../../routes/app_router.dart';
 import '../../routes/screen_name.dart';
 import '../widget/my_button.dart';
@@ -24,10 +25,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
 
   savePref()async{
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setString('email', _emailController.text );
-    pref.setString('password', _passwordController.text);
-
+ await Provider.of<AuthProvider>(context,listen: false).login(_emailController.text , _passwordController.text);
   }
 
   @override
@@ -110,7 +108,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         savePref();
                       AppRouter.goToAndRemove(screenName: ScreenName.homeScreen);
                       }catch(e){
-                        print(e.toString());
+                        debugPrint(e.toString());
                       }
                     }
                   },

@@ -119,8 +119,9 @@ class NoteCard extends StatelessWidget {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: const Text('Confirm'),
-              content: const Text('Are you sure you wish to delete this item?'),
+              backgroundColor: const Color(AppColor.backGroundBottomSheet),
+              title: const Text('Confirm',style:TextStyle(color: Color(AppColor.primaryTextColor)),),
+              content: const Text('Are you sure you wish to delete this item?',style: TextStyle(color: Color(AppColor.primaryTextColor)),),
               actions: [
                 ElevatedButton(
                   onPressed: () => Navigator.of(context).pop(false),
