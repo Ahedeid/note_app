@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:note_app/screens/widget/my_button.dart';
 import 'package:note_app/screens/widget/my_textFeild.dart';
 import 'package:note_app/utils/colors_manger.dart';
+import 'package:note_app/utils/extnsions_validation.dart';
 import 'package:note_app/utils/images_constant.dart';
 import 'package:note_app/utils/sizes_in_app.dart';
 
@@ -43,6 +44,9 @@ class SignUpScreen extends StatelessWidget {
               ),
               SizedBox(height: midea.height * 0.03),
               MyTextField(
+                validator: (val) {
+                  if (!val!.isValidName) return 'Enter valid Name';
+                },
                 hintText: 'full Name',
                 obscureText: false,
                 keyboardType: TextInputType.name,
@@ -50,6 +54,9 @@ class SignUpScreen extends StatelessWidget {
               ),
               SizedBox(height: midea.height * 0.02),
               MyTextField(
+                validator: (val) {
+                  if (!val!.isValidEmail) return 'Enter valid email';
+                },
                 hintText: 'email@hotmail.com',
                 obscureText: false,
                 keyboardType: TextInputType.emailAddress,
@@ -57,6 +64,9 @@ class SignUpScreen extends StatelessWidget {
               ),
               SizedBox(height: midea.height * 0.02),
               MyTextField(
+                validator: (val) {
+                  if (!val!.isValidPhone) return 'Enter valid Phone';
+                },
                 hintText: 'Phone number',
                 obscureText: false,
                 keyboardType: TextInputType.phone,
@@ -64,6 +74,9 @@ class SignUpScreen extends StatelessWidget {
               ),
               SizedBox(height: midea.height * 0.02),
               MyTextField(
+                validator: (val) {
+                  if (!val!.isValidPassword) return 'Enter valid Password';
+                },
                 hintText: 'Password',
                 obscureText: true,
                 keyboardType: TextInputType.visiblePassword,
@@ -71,13 +84,21 @@ class SignUpScreen extends StatelessWidget {
               ),
               SizedBox(height: midea.height * 0.02),
               MyTextField(
+                validator: (val) {
+                  if (!val!.isValidPassword) return 'Enter valid Password';
+                },
                 hintText: 'Confirm password',
                 obscureText: true,
                 keyboardType: TextInputType.visiblePassword,
                 icon: IconsConstant.lock,
               ),
               SizedBox(height: midea.height * 0.03),
-              MyButton(routeName: '', title: 'Sign UP'),
+              MyButton(
+                  onPressed: (){
+
+                    AppRouter.goToAndRemove(screenName: ScreenName.homeScreen);
+                  }
+                  , title: 'Sign UP'),
               SizedBox(height: midea.height * 0.09),
               InkWell(
                 onTap: () => AppRouter.goToAndRemove(

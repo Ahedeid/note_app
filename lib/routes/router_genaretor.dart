@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:note_app/routes/screen_name.dart';
 import 'package:note_app/screens/auth_screen/signin_screen.dart';
 import 'package:note_app/screens/search_screen.dart';
-
 import '../screens/auth_screen/signup_screen.dart';
 import '../screens/home_screen.dart';
 import '../screens/launch_screen.dart';

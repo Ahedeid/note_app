@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/model/note_model.dart';
 import 'package:note_app/provider/note_service.dart';
+
 // import 'package:note_app/screens/widget/my_button.dart';
 import 'package:note_app/screens/widget/my_textFeild.dart';
 import 'package:note_app/screens/widget/sheared_appbar.dart';
@@ -22,51 +23,63 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     //  var midea = MediaQuery.of(context).size;
-    bool isLoading = true ;
+    bool isLoading = true;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: const ShearedAppBar(),
-      body: isLoading == true ?
-          Consumer<NoteService>(
-            builder: (context,note,child){
-              return  Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24,vertical: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text('25, Sep, 2022 - 08:20 pm',
-                      style: TextStyle(color: Color(AppColor.grayColor),),),
-                    const SizedBox(height: 10),
-                    Expanded(
-                      child: ListView.builder(
-                          itemCount: note.getNote.length,
-                          itemBuilder: (context,index) {
-                           final item = note.getNote[index].toString();
-                            return NoteCard(item: item, noteShow: note.getNote[index],);
-                          }),
-                    ),
-                  ],
-                ),
-              );
-            },
-          )
+      body: isLoading == true
+          ? Consumer<NoteService>(
+              builder: (context, note, child) {
+                return Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        '25, Sep, 2022 - 08:20 pm',
+                        style: TextStyle(
+                          color: Color(AppColor.grayColor),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Expanded(
+                        child: ListView.builder(
+                            itemCount: note.getNote.length,
+                            itemBuilder: (context, index) {
+                              final item = note.getNote[index].toString();
+                              // final removeItem = note.removeNote(item);
+                              return NoteCard(
+                                item: item,
+                                noteShow: note.getNote[index],
+                                onDismissed: (direction) {
+                                  note.removeItem(index);
+                                },
+                              );
+                            }),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            )
           : Padding(
-        padding:
-            const EdgeInsets.symmetric(horizontal: AppSizes.paddingHorizontal),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(ImageConstant.emptyImage),
-            const SizedBox(height: 5),
-            const Text(
-              AppStrings.emptyText,
-              style: TextStyle(
-                  fontSize: AppSizes.sizeTextEmptyNote,
-                  color: Color(AppColor.primaryTextColor)),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: AppSizes.paddingHorizontal),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(ImageConstant.emptyImage),
+                  const SizedBox(height: 5),
+                  const Text(
+                    AppStrings.emptyText,
+                    style: TextStyle(
+                        fontSize: AppSizes.sizeTextEmptyNote,
+                        color: Color(AppColor.primaryTextColor)),
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
       floatingActionButton: const Padding(
         padding: EdgeInsets.only(bottom: 10),
         child: MyFloating(),
@@ -76,49 +89,69 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class NoteCard extends StatelessWidget {
-  const NoteCard({
-    super.key,
-    required this.item,
-    required this.noteShow,
-  });
-   final NoteDescription noteShow ;
-   
+  NoteCard(
+      {super.key,
+      required this.item,
+      required this.noteShow,
+      this.onDismissed});
+
+  final NoteDescription noteShow;
+
+  void Function(DismissDirection)? onDismissed;
   final String item;
 
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      key:  Key(item),
+      onDismissed: onDismissed,
+      direction: DismissDirection.endToStart,
+      confirmDismiss: (DismissDirection direction) async {
+        return await showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text("Confirm"),
+              content: const Text("Are you sure you wish to delete this item?"),
+              actions: <Widget>[
+                ElevatedButton(
+                    onPressed: () => Navigator.of(context).pop(true),
+                    child: const Text("DELETE")),
+                ElevatedButton(
+                  onPressed: () => Navigator.of(context).pop(false),
+                  child: const Text("CANCEL"),
+                ),
+              ],
+            );
+          },
+        );
+      },
+      key: Key(item),
       background: Container(
         height: 50,
         width: 50,
-        decoration: const BoxDecoration(
-            color: Colors.red
-        ),
+        decoration: const BoxDecoration(color: Colors.red),
         child: const Icon(Icons.delete),
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: Container(
-          height: 110,
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           width: double.infinity,
-          decoration:  BoxDecoration(
-              borderRadius:  BorderRadius.circular(10),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
               gradient: const LinearGradient(
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
                   colors: [
                     Color(AppColor.linearGradientColorB),
                     Color(AppColor.linearGradientColorA)
-                  ]
-
-              )
-          ),
-
-          child:  Center(
+                  ])),
+          child: Center(
             child: ListTile(
-              title: Text( noteShow.note,
-                style: const TextStyle(fontSize: 25,color: Colors.white),),
+              title: Text(
+                noteShow.note,
+                style: const TextStyle(fontSize: 25, color: Colors.white),
+              ),
             ),
           ),
         ),
@@ -127,19 +160,13 @@ class NoteCard extends StatelessWidget {
   }
 }
 
-
-
-
-
-
 class MyFloating extends StatelessWidget {
-   const MyFloating({
+  const MyFloating({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-
     String descriptionText = '';
     var midea = MediaQuery.of(context).size;
     return SizedBox(
@@ -156,7 +183,9 @@ class MyFloating extends StatelessWidget {
           showModalBottomSheet(
             shape: const OutlineInputBorder(
               borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+                topLeft: Radius.circular(15),
+                topRight: Radius.circular(15),
+              ),
             ),
             backgroundColor: const Color(AppColor.backGroundBottomSheet),
             context: context,
@@ -179,8 +208,8 @@ class MyFloating extends StatelessWidget {
                     ),
                     const SizedBox(height: 15),
                     MyTextField(
-                      onChange: (val){
-                      descriptionText =val ;
+                      onChange: (val) {
+                        descriptionText = val;
                       },
                       hintText: ' Add Note',
                       obscureText: false,
@@ -200,12 +229,12 @@ class MyFloating extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 20),
+                    SizedBox(height: midea.height * 0.023),
                     // MyButton(routeName: '', title: 'Save'),
                     Container(
                       width: 325,
                       height: 48,
-                      decoration:  BoxDecoration(
+                      decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           gradient: const LinearGradient(
                               begin: Alignment.centerLeft,
@@ -213,19 +242,18 @@ class MyFloating extends StatelessWidget {
                               colors: [
                                 Color(AppColor.linearGradientColorB),
                                 Color(AppColor.linearGradientColorA),
-                              ]
-                          )
-                      ),
+                              ])),
                       child: ElevatedButton(
                         onPressed: () {
-                          Provider.of<NoteService>(context,listen: false).addNote(descriptionText);
+                          Provider.of<NoteService>(context, listen: false)
+                              .addNote(descriptionText);
                           Navigator.pop(context);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.transparent,
                           elevation: 0,
                         ),
-                        child:  const Text(
+                        child: const Text(
                           'Save',
                           style: TextStyle(
                             fontSize: AppSizes.sizeTextMedium,

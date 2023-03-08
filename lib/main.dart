@@ -7,13 +7,21 @@ import 'package:provider/provider.dart';
 
 
 
-void main()=> runApp(const NoteApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  return runApp(const NoteApp());
+}
 
 
-class NoteApp extends StatelessWidget {
+class NoteApp extends StatefulWidget {
   const NoteApp({Key? key}) : super(key: key);
 
+  @override
+  State<NoteApp> createState() => _NoteAppState();
+}
 
+
+ class _NoteAppState extends State<NoteApp> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<NoteService>(
@@ -28,7 +36,7 @@ class NoteApp extends StatelessWidget {
         ),
         title: 'Note App Tutorial',
         onGenerateRoute: RouteGenerator.onGenerateRoute,
-        initialRoute: ScreenName.launchScreen ,
+        initialRoute: ScreenName.launchScreen,
         navigatorKey: AppRouter.navigatorKey,
       ),
     );

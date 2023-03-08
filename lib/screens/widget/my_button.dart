@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import '../../routes/app_router.dart';
 import '../../utils/colors_manger.dart';
 import '../../utils/sizes_in_app.dart';
 
@@ -8,15 +6,17 @@ import '../../utils/sizes_in_app.dart';
 
 class MyButton extends StatelessWidget {
   MyButton({
-    required this.routeName,required this.title,
+   required this.title,
+    this.onPressed,
     super.key,
   });
-  String routeName;
+  void Function()? onPressed;
+
   String title;
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 325,
+      width: double.infinity,
       height: 48,
       decoration:  BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -30,7 +30,7 @@ class MyButton extends StatelessWidget {
           )
       ),
       child: ElevatedButton(
-        onPressed: ()=> AppRouter.goToAndRemove(screenName: routeName),
+        onPressed: onPressed ,
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
           elevation: 0,

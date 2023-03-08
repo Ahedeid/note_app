@@ -18,4 +18,8 @@ class NoteService extends ChangeNotifier{
      notifyListeners();
    }
 
+   void removeItem(int index) {
+     _note.removeAt(index);
+     notifyListeners();
+   }
 }
