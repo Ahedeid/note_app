@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/routes/screen_name.dart';
 import 'package:note_app/screens/auth_screen/signin_screen.dart';
+import 'package:note_app/screens/favorite_screen.dart';
 import 'package:note_app/screens/search_screen.dart';
 import '../screens/auth_screen/signup_screen.dart';
 import '../screens/home_screen.dart';
@@ -25,6 +26,9 @@ class RouteGenerator {
         break;
         case ScreenName.searchScreen:
         result = const SearchScreen();
+        break;
+        case ScreenName.favoriteScreen:
+        result = const FavoriteScreen();
         break;
       default:
         result = const Scaffold(

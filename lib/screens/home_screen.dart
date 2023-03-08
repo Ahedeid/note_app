@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/model/note_model.dart';
 import 'package:note_app/provider/note_service.dart';
-
-// import 'package:note_app/screens/widget/my_button.dart';
 import 'package:note_app/screens/widget/my_textFeild.dart';
 import 'package:note_app/screens/widget/sheared_appbar.dart';
 import 'package:note_app/utils/colors_manger.dart';
@@ -48,13 +46,19 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemCount: note.getNote.length,
                             itemBuilder: (context, index) {
                               final item = note.getNote[index].toString();
-                              // final removeItem = note.removeNote(item);
+                              final Item = note.getNote[index];
                               return NoteCard(
                                 item: item,
-                                noteShow: note.getNote[index],
+                                noteShow: Item,
                                 onDismissed: (direction) {
                                   note.removeItem(index);
+                                  note.removeItemFav(index);
                                 },
+                                onTapFav: () {
+                                  note.toggleFavorite(Item);
+                                  print('ok');
+                                },
+                                isFav: Item.isFavorite,
                               );
                             }),
                       ),
@@ -89,16 +93,21 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class NoteCard extends StatelessWidget {
-  NoteCard(
-      {super.key,
-      required this.item,
-      required this.noteShow,
-      this.onDismissed});
+  NoteCard({
+    super.key,
+    required this.item,
+    required this.noteShow,
+    this.onDismissed,
+    this.onTapFav,
+    this.isFav,
+  });
 
   final NoteDescription noteShow;
 
   void Function(DismissDirection)? onDismissed;
   final String item;
+  void Function()? onTapFav;
+  bool? isFav;
 
   @override
   Widget build(BuildContext context) {
@@ -110,15 +119,16 @@ class NoteCard extends StatelessWidget {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: const Text("Confirm"),
-              content: const Text("Are you sure you wish to delete this item?"),
-              actions: <Widget>[
-                ElevatedButton(
-                    onPressed: () => Navigator.of(context).pop(true),
-                    child: const Text("DELETE")),
+              title: const Text('Confirm'),
+              content: const Text('Are you sure you wish to delete this item?'),
+              actions: [
                 ElevatedButton(
                   onPressed: () => Navigator.of(context).pop(false),
-                  child: const Text("CANCEL"),
+                  child: const Text('CANCEL'),
+                ),
+                ElevatedButton(
+                  onPressed: () => Navigator.of(context).pop(true),
+                  child: const Text('DELETE'),
                 ),
               ],
             );
@@ -135,19 +145,36 @@ class NoteCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
           width: double.infinity,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              gradient: const LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  colors: [
-                    Color(AppColor.linearGradientColorB),
-                    Color(AppColor.linearGradientColorA)
-                  ])),
+            borderRadius: BorderRadius.circular(10),
+            gradient: const LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [
+                Color(AppColor.linearGradientColorB),
+                Color(AppColor.linearGradientColorA)
+              ],
+            ),
+          ),
           child: Center(
             child: ListTile(
+              trailing: InkWell(
+                onTap: onTapFav,
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color(AppColor.backGroundSearchIconColor),
+                  ),
+                  child: Icon(
+                    isFav == true ? Icons.favorite : Icons.favorite_border,
+                    color: const Color(AppColor.tealColor),
+                  ),
+                ),
+              ),
               title: Text(
                 noteShow.note,
                 style: const TextStyle(fontSize: 25, color: Colors.white),

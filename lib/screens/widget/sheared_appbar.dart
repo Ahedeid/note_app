@@ -37,6 +37,18 @@ class ShearedAppBar extends StatelessWidget with PreferredSizeWidget {
           ),
         ),
         const SizedBox(width: 10),
+        CircleAvatar(
+          radius: 25,
+          backgroundColor: const Color(AppColor.backGroundSearchIconColor),
+          child: IconButton(
+            icon: const Icon(
+              Icons.favorite,
+              color: Color(AppColor.tealColor),
+            ),
+            onPressed: ()=> AppRouter.goTo(screenName: ScreenName.favoriteScreen),
+          ),
+        ),
+        const SizedBox(width: 10),
         Image.asset(
           ImageConstant.logo,
           height: AppSizes.sizeLogoAppBar,
