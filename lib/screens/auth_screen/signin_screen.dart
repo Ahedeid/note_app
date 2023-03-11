@@ -26,6 +26,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   savePref()async{
  await Provider.of<AuthProvider>(context,listen: false).login(_emailController.text , _passwordController.text);
+ AppRouter.goToAndRemove(screenName: ScreenName.homeScreen);
   }
 
   @override
@@ -106,7 +107,10 @@ class _SignInScreenState extends State<SignInScreen> {
                     if (_formKey.currentState!.validate()) {
                       try{
                         savePref();
-                      AppRouter.goToAndRemove(screenName: ScreenName.homeScreen);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Welcome to App!')),
+                        );
+
                       }catch(e){
                         debugPrint(e.toString());
                       }

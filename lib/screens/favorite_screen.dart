@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/screens/widget/sheared_appbar.dart';
 import 'package:provider/provider.dart';
-
 import '../provider/note_service.dart';
 import '../utils/colors_manger.dart';
 import 'home_screen.dart';
+
 
 
 class FavoriteScreen extends StatelessWidget {
@@ -36,6 +36,7 @@ class FavoriteScreen extends StatelessWidget {
                         final itemsKey = favNote.getFavorites[index].toString();
                         final items = favNote.getFavorites[index];
                         return NoteCard(
+                          noteText: items.note,
                           isFav: items.isFavorite,
                           item: itemsKey,
                           noteShow: items,
