@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: const ShearedAppBar(),
-      body: context.watch<NoteService>().isLoading
+      body: context.watch<NoteService>().getNote.isEmpty
           ? Padding(
         padding: const EdgeInsets.symmetric(
             horizontal: AppSizes.paddingHorizontal),
@@ -44,8 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-      )
-          : Consumer<NoteService>(
+      ) : Consumer<NoteService>(
       builder: (context, note, child) {
         return Padding(
           padding:
