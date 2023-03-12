@@ -30,6 +30,7 @@ class NoteService extends ChangeNotifier{
      NoteDescription note = NoteDescription(noteDescription);
      _note.add(note);
      // setLoading(false);
+     notifyListeners();
    }
 
   void editNote (String noteDescription,int index){
