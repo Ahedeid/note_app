@@ -13,4 +13,5 @@ class IconsConstant {
   static String email = '$iconsPath/email.svg';
   static String lock = '$iconsPath/lock.svg';
   static String profile = '$iconsPath/profile.svg';
+  static String call = '$iconsPath/call.svg';
 }

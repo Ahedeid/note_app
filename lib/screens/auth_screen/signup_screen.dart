@@ -70,7 +70,7 @@ class SignUpScreen extends StatelessWidget {
                   hintText: 'Phone number',
                   obscureText: false,
                   keyboardType: TextInputType.phone,
-                  icon: '+ 99',
+                  icon: IconsConstant.call,
                 ),
                 SizedBox(height: midea.height * 0.02),
                 MyTextField(
