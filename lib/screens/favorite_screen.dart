@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/screens/widget/sheared_appbar.dart';
+import 'package:note_app/provider/note_service.dart';
+import 'package:note_app/shared/widget/sheared_appbar.dart';
+import 'package:note_app/utils/colors_manger.dart';
 import 'package:provider/provider.dart';
-import '../provider/note_service.dart';
-import '../utils/colors_manger.dart';
 import 'home_screen.dart';
-
-
 
 class FavoriteScreen extends StatelessWidget {
   const FavoriteScreen({Key? key}) : super(key: key);
@@ -13,12 +11,13 @@ class FavoriteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const ShearedAppBar(),
-      body: Consumer<NoteService>(
-        builder: (context, favNote, child) {
+        appBar: const ShearedAppBar(
+          title: 'Favorite',
+          showIcon: false,
+        ),
+        body: Consumer<NoteService>(builder: (context, favNote, child) {
           return Padding(
-            padding:
-            const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -46,7 +45,6 @@ class FavoriteScreen extends StatelessWidget {
                           },
                           onTapFav: () {
                             favNote.toggleFavorite(items);
-                            print('ok');
                           },
                         );
                       }),
@@ -54,7 +52,6 @@ class FavoriteScreen extends StatelessWidget {
               ],
             ),
           );
-        })
-    );
+        }));
   }
 }

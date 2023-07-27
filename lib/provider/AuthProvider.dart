@@ -1,7 +1,6 @@
-
 import 'package:flutter/material.dart';
+import 'package:note_app/model/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../model/user_model.dart';
 
 class AuthProvider extends ChangeNotifier {
   User? _user;
@@ -36,5 +35,6 @@ class AuthProvider extends ChangeNotifier {
   }
 
   bool get isLoggedIn => _user != null;
+
   User? get user => _user;
 }

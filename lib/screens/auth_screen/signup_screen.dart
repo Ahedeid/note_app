@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/screens/widget/my_button.dart';
-import 'package:note_app/screens/widget/my_textFeild.dart';
+import 'package:note_app/routes/app_router.dart';
+import 'package:note_app/routes/screen_name.dart';
+import 'package:note_app/shared/widget/my_button.dart';
+import 'package:note_app/shared/widget/my_textFeild.dart';
 import 'package:note_app/utils/colors_manger.dart';
 import 'package:note_app/utils/extnsions_validation.dart';
 import 'package:note_app/utils/images_constant.dart';
 import 'package:note_app/utils/sizes_in_app.dart';
-
-import '../../routes/app_router.dart';
-import '../../routes/screen_name.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -23,18 +22,22 @@ class SignUpScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               SizedBox(height: midea.height * 0.1),
-              const Text.rich(TextSpan(
+              const Text.rich(
+                TextSpan(
                   text: 'Sign ',
                   style: TextStyle(
                       fontSize: AppSizes.sizeTextPrimary,
                       color: Color(AppColor.primaryTextColor)),
                   children: <InlineSpan>[
                     TextSpan(
-                        text: 'Up',
-                        style: TextStyle(
-                          color: Color(AppColor.tealColor),
-                        ))
-                  ])),
+                      text: 'Up',
+                      style: TextStyle(
+                        color: Color(AppColor.tealColor),
+                      ),
+                    )
+                  ],
+                ),
+              ),
               SizedBox(height: midea.height * 0.01),
               const Text(
                 'Create a new account!',
@@ -93,12 +96,11 @@ class SignUpScreen extends StatelessWidget {
                 icon: IconsConstant.lock,
               ),
               SizedBox(height: midea.height * 0.03),
-              MyButton(
-                  onPressed: (){
-
+              CustomButton(
+                  onPressed: () {
                     AppRouter.goToAndRemove(screenName: ScreenName.homeScreen);
-                  }
-                  , title: 'Sign UP'),
+                  },
+                  title: 'Sign UP'),
               SizedBox(height: midea.height * 0.09),
               InkWell(
                 onTap: () => AppRouter.goToAndRemove(

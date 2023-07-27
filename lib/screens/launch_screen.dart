@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/utils/sizes_in_app.dart';
 import 'package:provider/provider.dart';
-import '../provider/userLoggedIn.dart';
+import '../provider/AuthProvider.dart';
 import '../routes/app_router.dart';
 import '../routes/screen_name.dart';
 import '../utils/images_constant.dart';

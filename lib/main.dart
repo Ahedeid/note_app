@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/provider/note_service.dart';
-import 'package:note_app/provider/userLoggedIn.dart';
+import 'package:note_app/provider/AuthProvider.dart';
 import 'package:note_app/routes/app_router.dart';
 import 'package:note_app/routes/router_genaretor.dart';
 import 'package:note_app/routes/screen_name.dart';

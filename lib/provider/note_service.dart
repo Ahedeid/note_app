@@ -1,64 +1,61 @@
-
-
-
 import 'package:flutter/widgets.dart';
 import 'package:note_app/model/note_model.dart';
 
-class NoteService extends ChangeNotifier{
-  // bool isLoading = false;
-  //
-  // void setLoading(bool value) {
-  //   isLoading = value;
-  //   notifyListeners();
-  // }
+class NoteService extends ChangeNotifier {
+  bool isLoading = false;
 
-   final List<NoteDescription> _note =  <NoteDescription>[];
-   final List<NoteDescription> _favorites = [];
-
-   List<NoteDescription> get getNote {
-   //   if(_note.isEmpty){
-   //     setLoading(true);
-   //   }else {
-   //     setLoading(false);
-   //   }
-     return _note ;
-   }
-   List<NoteDescription> get getFavorites => _favorites;
-
-   void addNote (String noteDescription){
-     // setLoading(true);
-     NoteDescription note = NoteDescription(noteDescription);
-     _note.add(note);
-     // setLoading(false);
-     notifyListeners();
-   }
-
-  void editNote (String noteDescription,int index){
-    // setLoading(true);
-    _note[index].note =  noteDescription ;
-    // setLoading(false);
+  void setLoading(bool value) {
+    isLoading = value;
+    notifyListeners();
   }
 
-   void removeItem(int index) {
-     _note.removeAt(index);
-     notifyListeners();
-   }
+  final List<NoteDescription> _note = <NoteDescription>[];
+  final List<NoteDescription> _favorites = [];
 
+  List<NoteDescription> get getNote {
+    //   if(_note.isEmpty){
+    //     setLoading(true);
+    //   }else {
+    //     setLoading(false);
+    //   }
+    return _note;
+  }
 
-   void toggleFavorite(NoteDescription item) {
-     item.isFavorite = !item.isFavorite;
+  List<NoteDescription> get getFavorites => _favorites;
 
-     if (item.isFavorite) {
-       _favorites.add(item);
-     } else {
-       _favorites.remove(item);
-     }
-      debugPrint(_favorites.toString());
-     notifyListeners();
-   }
+  void addNote(String noteDescription) {
+    setLoading(true);
+    NoteDescription note = NoteDescription(noteDescription);
+    _note.add(note);
+    setLoading(false);
+  }
 
-   void removeItemFav(int index) {
-     _favorites.removeAt(index);
-     notifyListeners();
-   }
+  void editNote(String noteDescription, int index) {
+    setLoading(true);
+    _note[index].note = noteDescription;
+    setLoading(false);
+  }
+
+  void removeItem(int index) {
+    setLoading(true);
+    _note.removeAt(index);
+    setLoading(false);
+  }
+
+  void toggleFavorite(NoteDescription item) {
+    item.isFavorite = !item.isFavorite;
+
+    if (item.isFavorite) {
+      _favorites.add(item);
+    } else {
+      _favorites.remove(item);
+    }
+    debugPrint(_favorites.toString());
+    notifyListeners();
+  }
+
+  void removeItemFav(int index) {
+    _favorites.removeAt(index);
+    notifyListeners();
+  }
 }

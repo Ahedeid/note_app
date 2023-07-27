@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/utils/colors_manger.dart';
 import 'package:note_app/utils/images_constant.dart';
-import '../utils/colors_manger.dart';
-import '../utils/sizes_in_app.dart';
+import 'package:note_app/utils/sizes_in_app.dart';
+
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({Key? key}) : super(key: key);

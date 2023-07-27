@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/screens/widget/my_textFeild.dart';
+import 'package:note_app/provider/AuthProvider.dart';
+import 'package:note_app/routes/app_router.dart';
+import 'package:note_app/routes/screen_name.dart';
+import 'package:note_app/shared/widget/my_button.dart';
+import 'package:note_app/shared/widget/my_textFeild.dart';
 import 'package:note_app/utils/colors_manger.dart';
 import 'package:note_app/utils/images_constant.dart';
 import 'package:note_app/utils/sizes_in_app.dart';
 import 'package:provider/provider.dart';
-import '../../provider/userLoggedIn.dart';
-import '../../routes/app_router.dart';
-import '../../routes/screen_name.dart';
-import '../widget/my_button.dart';
+
 import 'package:note_app/utils/extnsions_validation.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -102,7 +103,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   ],
                 ),
                 SizedBox(height: midea.height * 0.015),
-                MyButton(
+                CustomButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       try{
