@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/provider/note_service.dart';
 import 'package:note_app/utils/colors_manger.dart';
-import 'package:note_app/utils/images_constant.dart';
 import 'package:note_app/utils/sizes_in_app.dart';
 import 'package:provider/provider.dart';
 import 'my_button.dart';
