@@ -22,7 +22,7 @@ class RouteGenerator {
         result = const SignInScreen();
         break;
       case ScreenName.signUpScreen:
-        result = const SignUpScreen();
+        result =  SignUpScreen();
         break;
       case ScreenName.searchScreen:
         result = const SearchScreen();
